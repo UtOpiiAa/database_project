@@ -15,7 +15,6 @@ export default new Router({
       path: '/home',
       name: 'Home',
       component: Home,
-      redirect: '/index',
       children: [
         {
           path: '/index',
@@ -31,11 +30,6 @@ export default new Router({
           component: () => import('../components/jotter/Articles')
         },
         {
-          path: '/jotter/article',
-          name: 'Article',
-          component: () => import('../components/jotter/ArticleDetails')
-        },
-        {
           path: '/library',
           name: 'Library',
           component: LibraryIndex,
@@ -43,20 +37,21 @@ export default new Router({
             requireAuth: true
           },},
         {
-            path: '/Exam',
+          path: '/Exam',
           name: 'Exam',
           component: ExamIndex,
           meta: {
             requireAuth: true
           }
-        }
+        },
+        
       ]
     },
     {
-      path: '/register',
-      name: 'Register',
-      component: () => import('../components/Register')
-    }, {
+      path: '/',
+      redirect: '/home',
+    },
+    {
       path: '/admin',
       name: 'Admin',
       component: () => import('../components/admin/AdminIndex'),
@@ -74,6 +69,11 @@ export default new Router({
         }
       ]
     },
+    {
+      path: '/register',
+      name: 'Register',
+      component: () => import('../components/Register')
+    }, 
     {
       path: '/login',
       name: 'Login',

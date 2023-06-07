@@ -44,6 +44,14 @@
 
     <div class="e_div" v-else>
       <h1>考试结束</h1>
+      <div>
+        <button class="ss_btn1" @click="tohome()">
+            再来一次
+        </button>
+        <button class="ss_btn1" @click="tojotter()">
+            查看错题
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -80,7 +88,7 @@ export default {
             options: ["选项A", "选项B", "选项C", "选项D"],
             correctAnswer: "选项A",
           },
-          {
+          /*{
             title: "问题2",
             options: ["选项A", "选项B", "选项C", "选项D"],
             correctAnswer: "选项B",
@@ -89,7 +97,7 @@ export default {
             title: "问题3",
             options: ["选项A", "选项B", "选项C", "选项D"],
             correctAnswer: "选项C",
-          },
+          },*/
           // 添加更多问题...
         ];
       }, 1000);
@@ -118,6 +126,12 @@ export default {
       // 可以通过 this.selectedAnswers 获取选中的答案数组
       console.log("提交答案:", this.selectedAnswers);
     },
+    tohome(){
+      this.$router.push('/home' );
+    },
+    tojotter(){
+      this.$router.push('/jotter' );
+    },
   },
 };
 </script>
@@ -132,13 +146,13 @@ export default {
 }
 
 .question-box {
-  border: 20px solid #ccc;
-  padding: 150px;
-  margin-bottom: 20px;
+  
 }
 
 .navigation-buttons {
   margin-top: 200px;
+  margin-left: 280px;
+  text-align: center
 }
 
 button {
@@ -158,10 +172,17 @@ button:disabled {
 }
 
 .s_btn {
-  margin-top: 35%;
+  margin-top: 25%;
   margin-bottom: 35%;
-  margin-left: 17%;
+  margin-left: 13%;
   text-align: center;
+}
+.ss_btn1{
+  width:200px;
+  height:100px;
+  font-size: 20px;
+  margin-top: 15%;
+  margin-left: 12%;
 }
 .ss_btn{
   width:200px;
