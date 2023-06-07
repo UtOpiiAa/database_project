@@ -1,83 +1,77 @@
 <template>
-  <div style="margin-top: 40px">
-    <!--<el-button @click="addArticle()">添加文章</el-button>-->
-    <div class="articles-area">
-      <el-card style="text-align: left">
-        <div v-for="article in articles" :key="article.id">
-          <div style="float:left;width:85%;height: 150px;">
-            <router-link class="article-link" :to="{path:'jotter/article',query:{id: article.id}}"><span style="font-size: 20px"><strong>{{article.articleTitle}}</strong></span></router-link>
-            <el-divider content-position="left">{{article.articleDate}}</el-divider>
-            <router-link class="article-link" :to="{path:'jotter/article',query:{id: article.id}}"><p>{{article.articleAbstract}}</p></router-link>
-          </div>
-          <el-image
-            style="margin:18px 0 0 30px;width:100px;height: 100px"
-            :src="article.articleCover"
-            fit="cover"></el-image>
-          <el-divider></el-divider>
-        </div>
-      </el-card>
-    </div>
-    <el-pagination
-      background
-      layout="total, prev, pager, next, jumper"
-      @current-change="handleCurrentChange"
-      :page-size="pageSize"
-      :total="total">
-    </el-pagination>
+  <div class="wrong-questions">
+    <h2 class="page-title">错题集</h2>
+    <div v-if="wrongQuestions.length === 0" class="empty-message">暂无错题</div>
+    <el-card v-else class="question-card" v-for="(question, index) in wrongQuestions" :key="index">
+      <div class="question-content">{{ question.content }}</div>
+      <el-radio-group v-model="selectedOptions[index]" class="question-options">
+        <el-radio v-for="option in question.options" :label="option" :key="option">{{ option }}</el-radio>
+      </el-radio-group>
+      <div class="actions">
+        <el-button type="danger" @click="removeQuestion(index)">移除</el-button>
+      </div>
+    </el-card>
   </div>
 </template>
 
 <script>
-
-  export default {
-    name: 'Articles',
-    data () {
-      return {
-        articles: [],
-        pageSize: 4,
-        total: 0
-      }
+export default {
+  name: 'WrongQuestions',
+  data() {
+    return {
+      wrongQuestions: [
+        {
+          content: '这是一个错题的问题描述',
+          options: ['选项A', '选项B', '选项C', '选项D'],
+        },
+        {
+          content: '这是另一个错题的问题描述',
+          options: ['选项A', '选项B', '选项C', '选项D'],
+        },
+      ],
+      selectedOptions: [],
+    };
+  },
+  methods: {
+    removeQuestion(index) {
+      this.wrongQuestions.splice(index, 1);
+      this.selectedOptions.splice(index, 1);
     },
-    mounted () {
-      this.loadArticles()
-    },
-    methods: {
-      loadArticles () {
-        var _this = this
-        this.$axios.get('/article/' + this.pageSize + '/1').then(resp => {
-          if (resp && resp.data.code === 200) {
-            _this.articles = resp.data.result.content
-            _this.total = resp.data.result.totalElements
-          }
-        })
-      },
-      handleCurrentChange (page) {
-        var _this = this
-        this.$axios.get('/article/' + this.pageSize + '/' + page).then(resp => {
-          if (resp && resp.data.code === 200) {
-            _this.articles = resp.data.result.content
-            _this.total = resp.data.result.totalElements
-          }
-        })
-      }
-    }
-  }
+  },
+};
 </script>
 
 <style scoped>
-  .articles-area {
-    width: 990px;
-    height: 750px;
-    margin-left: auto;
-    margin-right: auto;
-  }
+.wrong-questions {
+  max-width: 600px;
+  margin: 0 auto;
+}
 
-  .article-link {
-    text-decoration: none;
-    color: #606266;
-  }
+.page-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-  .article-link:hover {
-    color: #409EFF;
-  }
+.empty-message {
+  text-align: center;
+  margin-top: 20px;
+  color: #999;
+}
+
+.question-card {
+  margin-bottom: 20px;
+}
+
+.question-content {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.question-options {
+  margin-bottom: 10px;
+}
+
+.actions {
+  text-align: right;
+}
 </style>

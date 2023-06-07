@@ -56,6 +56,23 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: () => import('../components/Register')
+    }, {
+      path: '/admin',
+      name: 'Admin',
+      component: () => import('../components/admin/AdminIndex'),
+      meta: {
+        requireAuth: true
+      },
+      children: [
+        {
+          path: '/admin/dashboard',
+          name: 'Dashboard',
+          component: () => import('../components/admin/dashboard/admin/index'),
+          meta: {
+            requireAuth: true
+          }
+        }
+      ]
     },
     {
       path: '/login',

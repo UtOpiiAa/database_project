@@ -58,7 +58,7 @@ export default{
       //     }
       //   })
       //   .catch(failResponse => {})
-      this.$router.push('/index');
+      this.$router.push('/index' );
     }
   }
 }

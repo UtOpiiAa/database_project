@@ -24,6 +24,7 @@
     </div>
 
     <button @click="submitExam">提交</button>
+    <button @click="login">考试</button>
   </div>
 </template>
 
@@ -41,6 +42,10 @@ export default {
         alert('请选择一个考试');
       }
     },
+    login () {
+
+      this.$router.push('/exam' );
+    }
   },
 };
 </script>

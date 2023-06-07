@@ -1,12 +1,16 @@
 <template>
   <div class="exam-page">
-    <h1>考试页面</h1>
-
-    <div v-if="currentPage === 0">
-      <button @click="nextPage">开始考试</button>
+    <div>
+      <h1 class="h1_title">考试页面</h1>
+    </div>
+    <div class="s_btn" v-if="currentPage === 0">
+      <button  class="ss_btn" @click="nextPage">开始考试</button>
     </div>
 
     <div v-else-if="currentPage > 0 && currentPage <= questions.length">
+      <div class="e_btn">
+        <button  class="ee_btn" @click="nextPage" :disabled="currentPage < questions.length || !answered">提交答卷</button>
+      </div>
       <div class="question-box">
         <h3>{{ currentQuestion.title }}</h3>
         <ul>
@@ -38,9 +42,8 @@
       </div>
     </div>
 
-    <div v-else>
-      <h3>考试完成</h3>
-      <button @click="submitExam">提交</button>
+    <div class="e_div" v-else>
+      <h1>考试结束</h1>
     </div>
   </div>
 </template>
@@ -145,5 +148,44 @@ button {
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.h1_title {
+  font-family: Simsun;
+  text-align: center;
+  color: #000;
+  font-size:2cm
+}
+
+.s_btn {
+  margin-top: 35%;
+  margin-bottom: 35%;
+  margin-left: 17%;
+  text-align: center;
+}
+.ss_btn{
+  width:200px;
+  height:100px;
+  font-size: 20px;
+}
+
+.e_btn{
+  margin-left: 88%;
+  text-align: center;
+}
+
+.ee_btn{
+  width:140px;
+  height:50px;
+  font-size: 20px;
+}
+
+.e_div{
+  padding-top: 200px;
+  padding-bottom: 200px;
+  margin: 20px 0px;
+  width: 100%;
+  height: 100px;
+  align-items: center;
 }
 </style>

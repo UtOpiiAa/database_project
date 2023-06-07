@@ -22,11 +22,11 @@ export default {
   data () {
     return {
       navList: [
-        {name: '/index', navItem: 'index'},
-        {name: '/exam', navItem: 'start'},
-        {name: '/jotter', navItem: 'End the exam'},
-        {name: '/library', navItem: 'skip'},
-        {name: '/admin', navItem: 'next'}
+        {name: '/index', navItem: '考试'},
+        {name: '/exam', navItem: '开始'},
+        {name: '/jotter', navItem: '错题集'},
+        {name: '/library', navItem: '统计'},
+        {name: '/admin', navItem: '主页'}
       ]
     }
   }
